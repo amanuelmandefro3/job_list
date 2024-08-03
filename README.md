@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Job Listings Web Application
 
-## Getting Started
+This is a web application for browsing job listings. Users can view all available job opportunities, sort them by relevance or deadline, and view detailed information about each job.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Display all job listings
+- Sort job listings by most relevant, nearest deadline, or farthest deadline
+- View detailed information for each job
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### All Jobs Rendered
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![All Jobs Rendered](./public/Image/Screenshot%20from%202024-08-03%2012-33-48.png)
 
-## Learn More
+### Sort Selection Dropdown
 
-To learn more about Next.js, take a look at the following resources:
+![Sort Selection Dropdown](./public/Image/Screenshot%20from%202024-08-03%2012-34-03.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Job Details Page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Job Details Page](./public/Image/Screenshot%20from%202024-08-03%2013-06-58.png)
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/amanuelmandefro3/job_list.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd job-listings-webapp
+    ```
+3. Install the dependencies:
+    ```sh
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Usage
+
+1. Start the development server:
+    ```sh
+    npm run dev
+    ```
+2. Open your browser and navigate to `http://localhost:3000`.
+
+## Code Structure
+
+- `app/joblist/page.tsx`: The main page displaying the job listings and sorting functionality.
+- `jobs.json`: The JSON file containing the job data.
+- `public/images`: The directory containing job-related images.
+
+
