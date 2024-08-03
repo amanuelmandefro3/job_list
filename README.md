@@ -1,6 +1,6 @@
 # Job Listings Web Application
 
-This is a web application for browsing job listings. Users can view all available job opportunities, sort them by relevance or deadline, and view detailed information about each job.
+This is a web application for browsing job listings and implemented with nextjs. Users can view all available job opportunities, sort them by relevance or deadline, and view detailed information about each job.
 
 ## Features
 
