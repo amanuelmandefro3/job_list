@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html data-theme="cupcake" lang="en">
       <body className={epilogue.className}>{children}</body>
     </html>
   );

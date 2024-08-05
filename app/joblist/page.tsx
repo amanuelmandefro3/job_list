@@ -2,119 +2,68 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import data from "../jobs.json";
-import { sort } from 'fast-sort';
+import { getData } from "../service/apiService"; 
+import JobItem  from "../component/JobItem";
 
-interface Props {
-  params?: { sortOrder?: string }
+
+export interface JobType {
+  id:string
+  title:string 
+  company:string
+  description:string
+  categories:string[]
 }
-
-const JobList = ({ params = {} }: Props) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialSortOrder = searchParams.get("sortOrder") || params.sortOrder || "most_relevant";
-  const [sortOption, setSortOption] = useState(initialSortOrder);
-  const [sortedData, setSortedData] = useState(data);
+const JobList = () => {
+  const [data, setData] = useState<JobType[]>([]);
+  // const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState("most_relevant");
 
   useEffect(() => {
-    if (params.sortOrder && params.sortOrder !== sortOption) {
-      setSortOption(params.sortOrder);
-    }
-  }, [params.sortOrder]);
+    const fetchData = async () => {
+      try {
+        const result = await getData();
+        setData(result.data);
+        console.log(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      // } finally {
+      //   setLoading(false);
+      // }
+    };
 
-  useEffect(() => {
-    const querySortOrder = searchParams.get("sortOrder");
-    if (querySortOrder && querySortOrder !== sortOption) {
-      setSortOption(querySortOrder);
-    }
-  }, [searchParams]);
+    fetchData();
+  }, []);
 
-  useEffect(() => {
-    let sorted = [...data];
-    switch (sortOption) {
-      case 'farthest_deadline':
-        sorted = sort(sorted).desc(job => new Date(job.about.deadline));
-        break;
-      case 'nearest_deadline':
-        sorted = sort(sorted).asc(job => new Date(job.about.deadline));
-        break;
-      default:
-        break;
-    }
-    setSortedData(sorted);
-  }, [sortOption]);
-
-  console.log("Current sort option:", sortOption);
-  console.log("Sorted data:", sortedData);
-
-  const handleSortChange = (e) => {
-    const value = e.target.value;
-    setSortOption(value);
-    router.push(`?sortOrder=${value}`);
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+    // Perform sorting based on sortOrder
+    // Example: sort data accordingly here
   };
 
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
-    <main className="mt-[72px] ml-[122px] w-[920px]">
+    <main className="mt-[72px] ml-[122px] w-[1200px]">
       <div className="flex justify-between align-middle pb-5">
         <div>
           <h1 className="text-2xl font-bold">Opportunities</h1>
-          <p className="text-base text-gray-400">Showing {sortedData.length} results</p>
+          <p className="text-base text-gray-400">Showing {data.length} results</p>
         </div>
         <div>
           Sort by{" "}
-          <select
-            name="sort"
-            id="sort"
-            className=""
-            value={sortOption}
-            onChange={handleSortChange}
-          >
-            <option value="most_relevant" className="p-2">
-              Most relevant
-            </option>
-            <option value="farthest_deadline" className="p-2">
-              Farthest Deadline
-            </option>
-            <option value="nearest_deadline" className="p-2">
-              Nearest Deadline
-            </option>
+          <select name="sort" id="sort" className="" value={sortOrder} onChange={handleSortChange}>
+            <option value="most_relevant" className="p-2">Most relevant</option>
+            <option value="farthest_deadline" className="p-2">Farthest Deadline</option>
+            <option value="nearest_deadline" className="p-2">Nearest Deadline</option>
           </select>
         </div>
       </div>
-      <ul className="">
-        {sortedData.map((job, index) => (
-          <Link href={`/joblist/${index}`} key={index}>
-            <li className="flex gap-2 border mb-3 rounded-xl pl-4 pt-2 pb-2 pr-2 hover:bg-gray-200">
-              <div className="flex-shrink-0">
-                <Image
-                  src={`/Image${job.image}`}
-                  alt="job description"
-                  width={66}
-                  height={59}
-                  className="object-cover"
-                />
-              </div>
-              <div className="job-info">
-                <h2 className="text-xl font-semibold">{job.title}</h2>
-                <p className="text-base text-gray-400 pb-2">
-                  {job.company} {job.about.location}
-                </p>
-                <p className="pb-2">{job.description}</p>
-                <div className="flex justify-start gap-3">
-                  <p className="border rounded-full px-2 py-1 bg-green-100 text-green-500 min-w-5">
-                    In Person
-                  </p>
-                  <p className="border rounded-full px-2 py-1 text-amber-500 min-w-12 text-center">
-                    {job.about.categories[0]}
-                  </p>
-                  <p className="border rounded-full px-2 py-1 text-violet-500 min-w-12 text-center">
-                    {job.about.categories[1]}
-                  </p>
-                </div>
-              </div>
-            </li>
-          </Link>
+      <ul>
+      {data.map((job) => (
+          <JobItem key={job.id} job={job} />
         ))}
       </ul>
     </main>
