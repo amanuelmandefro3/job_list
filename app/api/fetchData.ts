@@ -1,4 +1,3 @@
-// pages/api/fetchData.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { fetchData, ApiResponse } from '../service/apiService';
 

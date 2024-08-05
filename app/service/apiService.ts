@@ -1,5 +1,3 @@
-// services/jobService.js
-
 export async function getData() {
   const res = await fetch("https://akil-backend.onrender.com/opportunities/search", { method: "GET" });
   if (!res.ok) {
