@@ -37,9 +37,6 @@ const JobList = () => {
     // Example: sort data accordingly here
   };
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <main className="mt-[72px] ml-[122px] w-[1200px]">

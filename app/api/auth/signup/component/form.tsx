@@ -5,9 +5,7 @@ import { useForm } from "react-hook-form";
 
 import Image from "next/image";
 
-
-import Otp from "@/app/otp/page";
-
+import Otp from "@/app/api/auth/otp/page";
 
 export default function Form() {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -37,9 +35,9 @@ export default function Form() {
 
       const result = await response.json();
       console.log(result);
-      setEmail(data.email); 
-      setIsSignupSuccessful(true); 
-      reset(); 
+      setEmail(data.email);
+      setIsSignupSuccessful(true);
+      reset();
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -50,7 +48,7 @@ export default function Form() {
   };
 
   if (isSignupSuccessful && email) {
-    return <Otp email={email} />; 
+    return <Otp email={email} />;
   }
 
   return (
@@ -145,7 +143,10 @@ export default function Form() {
               {errors.confirmPassword?.message?.toString()}
             </p>
           </div>
-          <button type="submit" className="border w-full rounded-3xl h-12 bg-[#4640DE] text-white font-semibold my-4" >
+          <button
+            type="submit"
+            className="border w-full rounded-3xl h-12 bg-[#4640DE] text-white font-semibold my-4"
+          >
             Send
           </button>
         </form>
@@ -156,7 +157,8 @@ export default function Form() {
         <div className="w-[80%]">
           By clicking Continue, you agree to our{" "}
           <span className="text-[#2D298E] font-semibold">Terms of Service</span>{" "}
-          and <span className="text-[#2D298E] font-semibold">Privacy Policy</span>
+          and{" "}
+          <span className="text-[#2D298E] font-semibold">Privacy Policy</span>
         </div>
       </div>
     </div>
