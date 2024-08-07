@@ -16,6 +16,7 @@ interface User {
   role: string;
 }
 
+
 export const options: NextAuthOptions = {
   providers: [
     GoogleProvider({
@@ -59,7 +60,6 @@ export const options: NextAuthOptions = {
         const user: User | null = await res.json();
         if (res.ok && user) {
             user["role"] = "Unverified Email"
-            console
           return user;
         }
         return null;
