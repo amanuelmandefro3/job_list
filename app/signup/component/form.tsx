@@ -37,8 +37,8 @@ export default function Form() {
 
       const result = await response.json();
       console.log(result);
-      setEmail(data.email); // Store the email
-      setIsSignupSuccessful(true); // Set signup success state
+      setEmail(data.email); 
+      setIsSignupSuccessful(true); 
       reset(); 
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
@@ -50,7 +50,7 @@ export default function Form() {
   };
 
   if (isSignupSuccessful && email) {
-    return <Otp email={email} />; // Render OTP component if signup is successful
+    return <Otp email={email} />; 
   }
 
   return (
