@@ -40,9 +40,7 @@ const JobDetails = ({ params: { id } }: Props) => {
     fetchJobDetails();
   }, [id]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -53,7 +51,7 @@ const JobDetails = ({ params: { id } }: Props) => {
   }
 
   return (
-    <main className="grid grid-cols-3 gap-8 m-8">
+    <main className="grid grid-cols-3 gap-10 m-8">
       <div className="col-span-2 mt-[46px]">
         <h1 className="font-bold text-2xl mb-3">Description</h1>
         <p className="mb-6">{job.description}</p>
@@ -73,7 +71,7 @@ const JobDetails = ({ params: { id } }: Props) => {
           <p>{job.whenAndWhere}</p>
         </div>
       </div>
-      <div className="md:w-80">
+      <div className="">
         <h1 className="font-bold text-2xl">About</h1>
         <div className="space-y-3">
           <div className="flex items-center space-x-2 w-full">
@@ -113,11 +111,11 @@ const JobDetails = ({ params: { id } }: Props) => {
           </div>
         </div>
         <h1 className="font-bold text-2xl mt-4 mb-3">Categories</h1>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap space-x-2">
           {job.categories.map((category: string, index: number) => (
             <p
               key={index}
-              className={`border rounded-full px-2 py-1 min-w-12 text-center ${index % 2 === 0 ? 'text-violet-500' : 'text-amber-500'}`}
+              className={`border rounded-full px-2 py-1 min-w-12 text-center ${index % 2 === 0 ? 'text-violet-500' : 'text-amber-500'} mb-2`}
             >
               {category}
             </p>
@@ -125,7 +123,7 @@ const JobDetails = ({ params: { id } }: Props) => {
         </div>
         <h1 className="font-bold text-2xl mt-4 mb-3">Required Skills</h1>
         <div>
-          <ul className="flex flex-wrap space-x-3">
+          <ul className="flex flex-wrap gap-2">
             {job.requiredSkills.map((skill, index) => (
               <li
                 key={index}

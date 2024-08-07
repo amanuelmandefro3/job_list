@@ -15,7 +15,6 @@ export interface JobType {
 }
 const JobList = () => {
   const [data, setData] = useState<JobType[]>([]);
-  // const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("most_relevant");
 
   useEffect(() => {
@@ -27,9 +26,6 @@ const JobList = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-      // } finally {
-      //   setLoading(false);
-      // }
     };
 
     fetchData();

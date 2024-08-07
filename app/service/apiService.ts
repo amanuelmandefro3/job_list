@@ -1,4 +1,5 @@
 export async function getData() {
+  
   const res = await fetch("https://akil-backend.onrender.com/opportunities/search", { method: "GET" });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
