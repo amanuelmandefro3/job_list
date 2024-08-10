@@ -5,15 +5,16 @@ import { getServerSession } from "next-auth";
 
 import JobList from "./joblist/page";
 
-
-export default async function  Home({searchParams}) {
+export default async function Home({ searchParams }) {
   const session = await getServerSession(options);
-    const callbackUrl = searchParams?.callbackUrl || "/";
-    
-    if (!session) {
-        redirect(`/api/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
-        return;
-    }
+  const callbackUrl = searchParams?.callbackUrl || "/";
+
+  // console.log("session", session);
+
+  // if (!session) {
+  //   redirect(`/api/auth/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`);
+  //   return;
+  // }
   return (
     <main>
       <JobList />

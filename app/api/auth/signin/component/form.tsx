@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import Image from 'next/image';
 import { useSearchParams } from "next/navigation";
+import Link from 'next/link'
 
 export default function Form() {
     const { register, handleSubmit, formState, reset } = useForm();
@@ -88,7 +89,7 @@ export default function Form() {
                         Continue
                     </button>
                     <div>
-                        Don’t have an account? <span className="text-[#4640DE] font-semibold">Sign Up</span>
+                        Don’t have an account? <Link href="/auth/signup"><span className="text-[#4640DE] font-semibold">Sign Up</span></Link>
                     </div>
                 </form>
             </div>

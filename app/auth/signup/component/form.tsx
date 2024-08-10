@@ -1,17 +1,19 @@
 "use client";
 import { useState } from "react";
-import { FormEvent } from "react";
 import { useForm } from "react-hook-form";
-
+import { signIn } from "next-auth/react";
+import Link from "next/link";
 import Image from "next/image";
 
 import Otp from "@/app/api/auth/otp/page";
 
 export default function Form() {
-  const { register, handleSubmit, formState, reset } = useForm();
+  const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors } = formState;
   const [email, setEmail] = useState<string | null>(null);
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+
+  const password = watch("password");
 
   const onSubmit = async (data: any) => {
     try {
@@ -25,7 +27,7 @@ export default function Form() {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
-          role: "User",
+          role: "user",
         }),
       });
 
@@ -44,7 +46,7 @@ export default function Form() {
   };
 
   const handleGoogleSubmit = () => {
-    console.log("Google login");
+    signIn("google", { callbackUrl: "/", redirect: true });
   };
 
   if (isSignupSuccessful && email) {
@@ -52,14 +54,14 @@ export default function Form() {
   }
 
   return (
-    <div className="flex justify-center ">
-      <div className="pt-12 w-[720px] flex flex-col justify-center  gap-4">
-        <h1 className="text-3xl font-bold w-[80%]  text-center mb-6 text-[#25324B]">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="pt-12 w-full max-w-[720px] flex flex-col justify-center gap-4 px-4 md:px-0">
+        <h1 className="text-3xl font-bold text-center mb-6 text-[#25324B]">
           Sign Up Today!
         </h1>
         <div
           onClick={handleGoogleSubmit}
-          className="border border-[#CCCCF5] w-[80%] h-12 flex gap-4 justify-center items-center hover:cursor-pointer"
+          className="border border-[#CCCCF5] w-full h-12 flex gap-4 justify-center items-center hover:cursor-pointer"
         >
           <Image
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -69,18 +71,18 @@ export default function Form() {
           />
           Continue with Google
         </div>
-        <div className="flex w-[80%] items-center gap-2 py-6 text-sm text-slate-600">
+        <div className="flex items-center gap-2 py-6 text-sm text-slate-600">
           <div className="h-px w-full bg-slate-200"></div>
           OR
           <div className="h-px w-full bg-slate-200"></div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-[80%]">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full">
           <div className="flex flex-col gap-2">
             <label htmlFor="name">Full Name</label>
             <input
               type="text"
               id="name"
-              className="border rounded-md   h-12 border-[#CCCCF5] p-2"
+              className="border rounded-md h-12 border-[#CCCCF5] p-2"
               {...register("name", {
                 required: {
                   value: true,
@@ -95,7 +97,7 @@ export default function Form() {
             <input
               type="email"
               id="email"
-              className="border rounded-md  h-12 border-[#CCCCF5] p-2"
+              className="border rounded-md h-12 border-[#CCCCF5] p-2"
               {...register("email", {
                 pattern: {
                   value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
@@ -114,7 +116,7 @@ export default function Form() {
             <input
               type="password"
               id="password"
-              className="border rounded-md   h-12 border-[#CCCCF5] p-2"
+              className="border rounded-md h-12 border-[#CCCCF5] p-2"
               {...register("password", {
                 required: {
                   value: true,
@@ -131,12 +133,14 @@ export default function Form() {
             <input
               type="password"
               id="confirmPassword"
-              className="border rounded-md   h-12 border-[#CCCCF5] p-2"
+              className="border rounded-md h-12 border-[#CCCCF5] p-2"
               {...register("confirmPassword", {
                 required: {
                   value: true,
                   message: "Confirm password is required",
                 },
+                validate: (value) =>
+                  value === password || "Passwords do not match",
               })}
             />
             <p style={{ color: "red" }}>
@@ -152,9 +156,11 @@ export default function Form() {
         </form>
         <div>
           Already have an account?{" "}
-          <span className="text-[#2D298E] font-semibold">Sign In</span>
+          <Link href="/api/auth/signin">
+            <span className="text-[#2D298E] font-semibold">Sign In</span>
+          </Link>
         </div>
-        <div className="w-[80%]">
+        <div className="w-full">
           By clicking Continue, you agree to our{" "}
           <span className="text-[#2D298E] font-semibold">Terms of Service</span>{" "}
           and{" "}

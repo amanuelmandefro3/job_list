@@ -11,6 +11,7 @@ import Responsibility from "../../component/Responsibility";
 import { getJobById } from "../../service/apiService";
 import type { JobDetails } from "@/app/types/jobTypes";
 import { formatDate } from "@/app/utils/dataFormatting";
+import Loading from "@/app/loading";
 
 interface Props {
   params: { id: string };
@@ -47,11 +48,11 @@ const JobDetails = ({ params: { id } }: Props) => {
   }
 
   if (!job) {
-    return <div>No job found</div>;
+    return <Loading/>
   }
 
   return (
-    <main className="grid grid-cols-3 gap-10 m-8">
+    <main className="grid grid-cols-3 gap-10 m-24">
       <div className="col-span-2 mt-[46px]">
         <h1 className="font-bold text-2xl mb-3">Description</h1>
         <p className="mb-6">{job.description}</p>
