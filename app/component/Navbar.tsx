@@ -16,8 +16,7 @@ const Navbar = () => {
             Home
           </li>
         </Link>
-        
-        {/* Conditionally render based on session status */}
+
         {status === "authenticated" && (
           <>
             <Link href="/bookmarks">

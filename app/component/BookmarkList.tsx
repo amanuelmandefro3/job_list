@@ -37,7 +37,7 @@ const BookmarkList = ({ bookmark, onRemoveBookmark }: BookmarkListProps) => {
       );
 
       if (res.ok) {
-        onRemoveBookmark(bookmark.eventID); // Notify parent to remove this bookmark from the list
+        onRemoveBookmark(bookmark.eventID); 
       } else {
         console.error("Failed to remove bookmark");
       }
@@ -62,6 +62,7 @@ const BookmarkList = ({ bookmark, onRemoveBookmark }: BookmarkListProps) => {
                 removeBookmark();
               }
             }}
+            data-testid="bookmark-remove-button"
             className="absolute top-4 right-4 cursor-pointer"
           >
             {isRemoving ? <Loading /> : <FaBookmark />}

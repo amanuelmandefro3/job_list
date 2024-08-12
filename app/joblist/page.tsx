@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { getData } from "../service/apiService"; 
@@ -15,21 +16,36 @@ export interface JobType {
 }
 
 const JobList = () => {
+  const { data: session, status } = useSession();
   const [data, setData] = useState<JobType[]>([]);
   const [sortOrder, setSortOrder] = useState("most_relevant");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getData();
+        if(session?.user?.accessToken){
+          const res = await fetch("https://akil-backend.onrender.com/opportunities/search", {
+            headers: {
+              Authorization: `Bearer ${session.user.accessToken}`,
+            },
+          })
+         if (!res.ok){
+          throw new Error("Failed to fetch data");
+         }
+        const data = await res.json();
+        setData(data.data);
+
+        }else{
+          const result = await getData();
         setData(result.data);
+      }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [data]);
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);

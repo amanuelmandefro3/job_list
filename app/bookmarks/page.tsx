@@ -55,7 +55,7 @@ const Bookmarks = () => {
           <BookmarkList 
             key={bookmark.eventID} 
             bookmark={bookmark} 
-            onRemoveBookmark={handleRemoveBookmark} // Pass the handler to the BookmarkList
+            onRemoveBookmark={handleRemoveBookmark} 
           />
         ))}
       </div>

@@ -7,7 +7,7 @@ import { LuCalendarClock } from "react-icons/lu";
 import { GoDotFill } from "react-icons/go";
 import { FaRegCheckCircle } from "react-icons/fa";
 
-import Responsibility from "../../component/Responsibility";
+
 import { getJobById } from "../../service/apiService";
 import type { JobDetails } from "@/app/types/jobTypes";
 import { formatDate } from "@/app/utils/dataFormatting";
