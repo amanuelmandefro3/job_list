@@ -57,7 +57,7 @@ const JobList = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <main className="w-[1200px]  mt-24 overflow-hidden">
-        <div className="flex justify-between align-middle pb-5">
+        <div className="flex justify-between align-middle pb-5 mx-2">
           <div>
             <h1 className="text-2xl font-bold">Opportunities</h1>
             <p className="text-base text-gray-400">Showing {data.length} results</p>

@@ -48,11 +48,12 @@ const BookmarkList = ({ bookmark, onRemoveBookmark }: BookmarkListProps) => {
     }
   };
 
-  
-
   return (
     <Link href={`/joblist/${bookmark.eventID}`}>
-      <div className="w-full border shadow rounded-xl mt-4 flex gap-4 pl-2 items-center min-h-32 relative hover:bg-gray-100">
+      <div
+        className="w-full border shadow rounded-xl mt-4 flex gap-4 pl-2 items-center min-h-32 relative hover:bg-gray-100"
+        data-testid={`bookmark-item-${bookmark.eventID}`}
+      >
         <Image src={bookmark.logoUrl} width={65} height={59} alt="org logo" />
         <div>
           <div
@@ -62,18 +63,22 @@ const BookmarkList = ({ bookmark, onRemoveBookmark }: BookmarkListProps) => {
                 removeBookmark();
               }
             }}
-            data-testid="bookmark-remove-button"
+            data-testid={`bookmark-icon-${bookmark.eventID}`}
             className="absolute top-4 right-4 cursor-pointer"
           >
-            {isRemoving ? <Loading /> : <FaBookmark />}
+            {isRemoving ? <Loading /> : <FaBookmark className="text-black-500" />}
           </div>
           <h1 className="text-2xl font-bold my-2">{bookmark.title}</h1>
           <p className="text-base text-gray-400 my-2 font-semibold">
             {bookmark.orgName}
           </p>
-          <p>
+          <p data-testid="bookmark-date">
             Bookmarked on:{" "}
-            {new Date(bookmark.dateBookmarked).toLocaleDateString()}
+            {new Date(bookmark.dateBookmarked).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })}
           </p>
           <p className="border my-2 max-w-24 px-2 py-1 text-center rounded-xl bg-[#8a86e7]">
             {bookmark.opType}

@@ -6,6 +6,7 @@ import Logout from "./Logout";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
+  console.log(session)
 
   return (
     <nav className="fixed top-0 left-0 z-50 flex justify-around items-center w-full h-20 bg-[#e9ebfd]">
@@ -20,11 +21,11 @@ const Navbar = () => {
         {status === "authenticated" && (
           <>
             <Link href="/bookmarks">
-              <li className=" border px-4 rounded-full cursor-pointer hover:border hover:bg-gray-50 hover:rounded-md px-4">
+              <li className=" border px-4 rounded-full cursor-pointer hover:border hover:bg-gray-50 hover:rounded-md px-4" data-id="open-bookmark">
                 Bookmarks
               </li>
             </Link>
-            <li className="cursor-pointer">User</li>
+            <li className="cursor-pointer">{session?.user?.name}</li>
             <Logout />
           </>
         )}

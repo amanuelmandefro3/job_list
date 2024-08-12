@@ -9,9 +9,11 @@ const JobItem = ({ job }: JobType) => {
   const { data: session } = useSession();
   const [bookmarked, setBookmarked] = useState(job.isBookmarked);
 
-  // setting bookmarked status 
+  // Update bookmark state when session and job.isBookmarked change
   useEffect(() => {
-    setBookmarked(job.isBookmarked);
+    if (session) {
+      setBookmarked(job.isBookmarked);
+    }
   }, [session, job.isBookmarked]);
 
   // Toggle bookmark status (add/remove bookmark)
@@ -35,10 +37,9 @@ const JobItem = ({ job }: JobType) => {
     }
   };
 
-  // showing job item
   return (
     <Link href={`/joblist/${job.id}`}>
-      <li className="flex gap-2 border mb-3 rounded-xl pl-4 pt-2 pb-2 pr-2 ">
+      <li className="flex gap-2 border mb-3 rounded-xl pl-4 pt-2 pb-2 pr-2 mx-2">
         <div className="flex-shrink-0">
           <Image
             src={job.logoUrl}
